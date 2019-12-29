@@ -2,7 +2,7 @@
 
 LinReg::LinReg(std::string path) {}
 
-LinReg::LinReg(std::istream& is) {}
+LinReg::LinReg(std::ifstream& is) {}
 
 bool LinReg::GenerateModel(std::string data_path) { return false; }
 
@@ -17,16 +17,6 @@ std::vector<int> LinReg::EvaluateDataset(std::string data_path,
   return std::vector<int>();
 }
 
-void LinReg::_Load(std::istream& is) {}
+std::ifstream& LinReg::_Load(std::ifstream& is) { return is; }
 
-void LinReg::_Save(std::ostream& os) {}
-
-std::ostream& operator>>(std::ostream& os, LinReg const& reg) {
-  // TODO: implement
-  return os;
-}
-
-std::istream& operator<<(std::istream& is, LinReg& reg) {
-  // TODO: implement
-  return is;
-}
+std::ofstream& LinReg::_Save(std::ofstream& os) { return os; }

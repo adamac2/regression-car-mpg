@@ -26,22 +26,20 @@ class LinReg : public RegAlg {
      *
      * @Param path path of the file to be read
      */
-    explicit LinReg(std::istream& is);
+    explicit LinReg(std::ifstream& is);
 
     /**
      * Virtual functions documented in reg_alg.h
      */
     bool GenerateModel(std::string data_path = "../../../regression-car-mpg/data/auto-mpg.data");
     bool SaveModel(std::string model_path);
-    friend std::ostream& operator>>(std::ostream& os, LinReg const& reg);
     bool LoadModel(std::string model_path);
-    friend std::istream& operator<<(std::istream& is, LinReg& reg);
     int Evaluate(std::vector<int> param);
     std::vector<int> EvaluateDataset(std::string data_path, std::string output_path);
 
   private:
-    void _Load(std::istream& is);
-    void _Save(std::ostream& os);
+    std::ifstream& _Load(std::ifstream& is);
+    std::ofstream& _Save(std::ofstream& os);
 
     double n_;
     double r_;

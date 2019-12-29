@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <fstream>
 
 /**
  * A pure virtual interface class that can read data and generate models
@@ -26,7 +27,7 @@ class RegAlg {
      * @Return whether model was saved successfully
      */
     virtual bool SaveModel(std::string model_path) = 0;
-    friend std::ostream& operator>>(std::ostream& os, RegAlg const& reg) { return os; }
+    friend std::ofstream& operator<<(std::ofstream& os, RegAlg& reg) { return reg._Save(os); };
 
     /**
      * Loads a model from a location
@@ -35,7 +36,7 @@ class RegAlg {
      * @Return whether model was loaded successfully
      */
     virtual bool LoadModel(std::string model_path) = 0;
-    friend std::istream& operator<<(std::istream& is, RegAlg& reg) { return is; }
+    friend std::ifstream& operator>>(std::ifstream& is, RegAlg& reg) { return reg._Load(is); };
 
     /**
      * Given inputs, uses the regression model to predict the output
@@ -59,8 +60,8 @@ class RegAlg {
     /**
      * Helper functions
      */
-    virtual void _Load(std::istream& is) = 0;
-    virtual void _Save(std::ostream& os) = 0;
+   virtual std::ifstream& _Load(std::ifstream& is) = 0;
+   virtual std::ofstream& _Save(std::ofstream& os) = 0;
 };
 
 #endif  // RCM_REGALG_H_
